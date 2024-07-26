@@ -1,21 +1,42 @@
 {
   "name": "gerador-convites",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "Uma aplicação React para gerar convites personalizados com base em um template Word.",
+  "author": "JG Bispo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgb27/gerador-convites.git"
+  },
+  "homepage": "https://github.com/jgb27/gerador-convites#readme",
+  "keywords": [
+    "react",
+    "docx",
+    "convites",
+    "geração",
+    "template",
+    "personalizado"
+  ],
+  "scripts": {
+    "start": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "docxtemplater": "^3.49.1",
+    "file-saver": "^2.0.5",
+    "pizzip": "^3.1.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^3.0.1",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
