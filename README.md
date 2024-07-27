@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Preechedor Automatico
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descrição
+O **Preechedor Automatico** é um projeto que modifica um arquivo base enviado em formato `.docx`. Ele permite que o usuário substitua tags dentro do documento por valores de sua escolha. Por exemplo, se o documento contém a tag `{nome}`, o programa pode substituir essa tag por vários nomes fornecidos em uma lista, gerando múltiplos documentos personalizados. Além disso, o projeto oferece a funcionalidade de exportar e importar tags previamente configuradas.
 
-## Available Scripts
+## Dependências Necessárias
+- Node.js
 
-In the project directory, you can run:
+## Instruções de Instalação
+Para instalar e configurar o projeto, utilize um dos seguintes comandos:
+```bash
+npm install
+# ou
+yarn add
+```
 
-### `npm start`
+## Exemplos de Uso
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Se no seu texto você colocar uma tag entre chaves, como {nome}, você pode usar o programa para gerar vários documentos, cada um com um nome diferente da lista fornecida. Por exemplo, se você desejar substituir a tag {data}, o programa alterará todas as ocorrências dessa tag pelo valor que você especificar.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Arquivo base (template.docx):
 
-### `npm test`
+```
+Olá {nome},
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Estamos felizes em informar que sua consulta está marcada para o dia {data}.
 
-### `npm run build`
+Atenciosamente,
+Equipe
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Lista de nomes:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+- João
+- Maria
+- Carlos
+```
 
-### `npm run eject`
+Documentos gerados:
+- Olá João, ...
+- Olá Maria, ...
+- Olá Carlos, ...
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Licença
+Este projeto está licenciado sob a licença MIT.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contribuição
+Contribuições são bem-vindas! Para contribuir, siga os seguintes passos:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Faça um fork do projeto
+2. Crie uma nova branch (git checkout -b minha-nova-feature)
+3. Commit suas mudanças (git commit -m 'Adiciona nova feature')
+4. Faça o push para a branch (git push origin minha-nova-feature)
+5. Abra um Pull Request para revisão
