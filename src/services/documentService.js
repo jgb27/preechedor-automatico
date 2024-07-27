@@ -2,7 +2,7 @@ import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import { saveAs } from 'file-saver';
 
-export const generateDocuments = (templateContent, namesArray, day, month, year, city, state) => {
+export const generateDocuments = (templateContent, namesArray, tagList) => {
   namesArray.forEach(name => {
     const zip = new PizZip(templateContent);
     const doc = new Docxtemplater(zip, {
@@ -10,11 +10,17 @@ export const generateDocuments = (templateContent, namesArray, day, month, year,
       linebreaks: true,
     });
 
-    doc.setData({
-      nome: name,
-      data: `${day} de ${month} de ${year}`,
-      localizacao: `${city} - ${state}`,
+    const data = {
+      name: name,
+    };
+
+    tagList.forEach(tag => {
+      data[tag.tag] = tag.text;
     });
+
+    doc.setData(data);
+
+    console.log('doc:', doc);
 
     try {
       doc.render();

@@ -7,7 +7,7 @@ const NameListInput = ({ names, setNames }) => {
       style={styles.textArea}
       rows="10"
       cols="50"
-      placeholder="Digite os nomes, um por linha..."
+      placeholder="Digite os nomes, um por linha... Use a tag {name} para inserir o nome no documento."
       value={names}
       onChange={e => setNames(e.target.value)}
     />

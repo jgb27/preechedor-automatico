@@ -19,15 +19,14 @@ export default {
         borderRadius: '5px',
         width: '150px'
     },
-    button: {
-        padding: '10px',
+    button:{
+        padding: '15px',
         fontSize: '16px',
-        backgroundColor: '#007bff',
-        color: '#fff',
+        backgroundColor: 'green',
+        color: 'white',
         border: 'none',
         borderRadius: '5px',
-        cursor: 'pointer',
-        width: '10vw'
+        cursor: 'pointer'
     },
     uploadContainer: {
         display: 'flex',
