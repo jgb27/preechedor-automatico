@@ -4,6 +4,7 @@ import './styles.css'; // Usamos um arquivo CSS separado para estilos
 
 // Componente FileUploader com prop-types para validação de tipos
 const FileUploader = ({ onFileChange }) => {
+
   return (
     <div className="upload-container">
       <input

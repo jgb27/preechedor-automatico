@@ -1,13 +1,17 @@
+import './components/styles.css';
+
 import React, { useState, useEffect } from 'react';
-import { Buffer } from 'buffer';
+
 import FileUploader from './components/FileUploader';
 import NameListInput from './components/NameListInput';
 import GenerateButton from './components/GenerateButton';
 import Footer from './components/Footer';
+import TagListInput from './components/TagListInput';
+import LoadingIndicator from './components/LoadingIndicator';
+
+import { Buffer } from 'buffer';
 import { readFileContent } from './utils/fileUtils';
 import { generateDocuments } from './services/documentService';
-import TagListInput from './components/TagListInput';
-import './components/styles.css';
 
 const App = () => {
   const [file, setFile] = useState(null);
@@ -35,7 +39,7 @@ const App = () => {
     }
   };
 
-  const handleGenerateDocuments = async () => {
+  const handleGenerateDocuments = () => {
     if (!templateContent) {
       alert('Por favor, carregue um documento de template primeiro.');
       return;
@@ -51,7 +55,7 @@ const App = () => {
     setErrorMessage('');
 
     try {
-      await generateDocuments(templateContent, namesArray, tagList);
+      generateDocuments(templateContent, namesArray, tagList);
     } catch (error) {
       setErrorMessage('Erro ao gerar o documento: ' + error.message);
       alert('Erro ao gerar o documento. Verifique o console para mais detalhes.');
@@ -115,7 +119,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Docx Preecher</h1>
+      <h1>Auto Doc Fill </h1>
       <FileUploader onFileChange={handleFileChange} />
       <NameListInput names={names} setNames={setNames} />
       <TagListInput handleAddTag={handleAddTag} handleRemoveTag={handleRemoveTag} tagList={tagList} />
@@ -125,7 +129,7 @@ const App = () => {
         <button className="button-export" onClick={handleExport}>Exportar</button>
       </div>
       <button className="button-import" onClick={handleImport}>Importar</button>
-      {isLoading && <p className="loading-message">Gerando documentos...</p>} {/* Exibe o indicador de carregamento */}
+      <LoadingIndicator isLoading={isLoading} />
       {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Exibe a mensagem de erro se existir */}
       <Footer />
     </div>
