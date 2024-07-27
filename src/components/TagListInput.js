@@ -1,19 +1,22 @@
+// Desc: Componente que gerencia uma lista de tags com suas respectivas ações
+
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './styles.css'; // Importando o arquivo CSS
 
 const TagListInput = ({ tagList, handleAddTag, handleRemoveTag }) => {
-
     const [tag, setTag] = useState('');
     const [text, setText] = useState('');
 
     return (
-        <div style={style.container}>
+        <div className="container">
             <span>
-                Caso de duvidas acesse nosso tutorial: 
-                <a href="https://www.google.com.br" target="_blank">Tutorial</a>
+                Caso de dúvidas, acesse nosso tutorial:
+                <a href="https://www.google.com.br" target="_blank" rel="noopener noreferrer">Tutorial</a>
             </span>
-            <div style={style.container_inputs}>
+            <div className="container-inputs">
                 <input
-                    style={style.input}
+                    className="input"
                     type="text"
                     placeholder="Tag"
                     value={tag}
@@ -21,7 +24,7 @@ const TagListInput = ({ tagList, handleAddTag, handleRemoveTag }) => {
                 />
 
                 <input
-                    style={style.input}
+                    className="input"
                     type="text"
                     placeholder="Texto a ser usado"
                     value={text}
@@ -29,99 +32,58 @@ const TagListInput = ({ tagList, handleAddTag, handleRemoveTag }) => {
                 />
 
                 <button
-                    style={style.buttonAdd}
+                    className="button-add"
                     onClick={() => {
-
                         handleAddTag({ tag, text });
                         setTag('');
                         setText('');
-                    }}>
+                    }}
+                >
                     Adicionar
                 </button>
             </div>
             <div>
-                <table style={style.table}>
-                    <tr >
-                        <th style={style.th}>Tag</th>
-                        <th style={style.th}>Texto</th>
-                        <th style={style.th}>Action</th>
-                    </tr>
-                    {tagList.map((tag, index) => (
-                        tag.tag && tag.text ? (
-                            <tr style={style.rowTable} key={index}>
-                                <td style={style.td}>{tag.tag}</td>
-                                <td style={style.td}>{tag.text}</td>
-                                <td style={style.td}>
-                                    <button
-                                        style={style.buttonRemove}
-                                        onClick={() => handleRemoveTag(tag)}>
-                                        Remover
-                                    </button>
-                                </td>
-                            </tr>
-                        ) : null
-                    ))}
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th className="th">Tag</th>
+                            <th className="th">Texto</th>
+                            <th className="th">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tagList.map((tag, index) => (
+                            tag.tag && tag.text ? (
+                                <tr className="row-table" key={index}>
+                                    <td className="td">{tag.tag}</td>
+                                    <td className="td">{tag.text}</td>
+                                    <td className="td">
+                                        <button
+                                            className="button-remove"
+                                            onClick={() => handleRemoveTag(tag)}
+                                        >
+                                            Remover
+                                        </button>
+                                    </td>
+                                </tr>
+                            ) : null
+                        ))}
+                    </tbody>
                 </table>
             </div>
         </div>
     );
-}
+};
 
-const style = {
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        gap: 20,
-        marginTop: 20,
-        padding: 10,
-    },
-    container_inputs: {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 10,
-    },
-    container_listExistingTag: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-    },
-    input: {
-        padding: 5,
-        fontSize: 16,
-        width: 200,
-    },
-    table: {
-        borderCollapse: 'collapse',
-        width: '100%',
-    },
-    th: {
-        backgroundColor: '#f2f2f2',
-        color: 'black',
-    },
-    td: {
-        padding: 8,
-        textAlign: 'center',
-    },
-    buttonRemove: {
-        padding: 5,
-        fontSize: 16,
-        backgroundColor: 'red',
-        color: 'white',
-        border: 'none',
-        cursor: 'pointer',
-        borderRadius: 5,
-
-    },
-    buttonAdd: {
-        padding: 5,
-        fontSize: 16,
-        backgroundColor: 'green',
-        color: 'white',
-        border: 'none',
-        cursor: 'pointer',
-        borderRadius: 5,
-    },
+TagListInput.propTypes = {
+    tagList: PropTypes.arrayOf(
+        PropTypes.shape({
+            tag: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    handleAddTag: PropTypes.func.isRequired,
+    handleRemoveTag: PropTypes.func.isRequired,
 };
 
 export default TagListInput;

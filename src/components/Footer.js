@@ -1,10 +1,12 @@
+// Desc: Footer component
+
 import React from 'react';
-import styles from './styles';
+import './styles.css'; // Importando o arquivo CSS
 
 const Footer = () => {
   return (
-    <footer style={styles.footer}>
-      <p style={styles.paragraph}>
+    <footer className="footer">
+      <p className="paragraph">
         Todos os direitos reservados &copy; JG Bispo 2021 - Gerador de Convites
         <span>
           Acesse o
@@ -12,7 +14,7 @@ const Footer = () => {
             href="https://github.com/jgb27"
             target="_blank"
             rel="noopener noreferrer"
-            style={styles.link}
+            className="link"
           >
             repositório
           </a>

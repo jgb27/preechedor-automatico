@@ -7,48 +7,57 @@ import Footer from './components/Footer';
 import { readFileContent } from './utils/fileUtils';
 import { generateDocuments } from './services/documentService';
 import TagListInput from './components/TagListInput';
+import './components/styles.css';
 
 const App = () => {
   const [file, setFile] = useState(null);
   const [names, setNames] = useState('');
-  const [tagList, setTagList] = useState(JSON.parse(localStorage.getItem('tagList')) || [
-    { tag: '', text: '' },
-  ]);
+  const [tagList, setTagList] = useState(JSON.parse(localStorage.getItem('tagList')) || [{ tag: '', text: '' }]);
   const [templateContent, setTemplateContent] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Estado para controlar o indicador de carregamento
 
   useEffect(() => {
     window.Buffer = Buffer;
-
   }, []);
 
   const handleFileChange = async (e) => {
-
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setErrorMessage('');
 
     try {
-      const content = await readFileContent(e.target.files[0]);
+      const content = await readFileContent(selectedFile);
       setTemplateContent(content);
     } catch (error) {
+      setErrorMessage('Erro ao ler o arquivo: ' + error.message);
       console.error('Erro ao ler o arquivo:', error);
     }
   };
 
-  const handleGenerateDocuments = () => {
+  const handleGenerateDocuments = async () => {
     if (!templateContent) {
       alert('Por favor, carregue um documento de template primeiro.');
       return;
     }
 
     const namesArray = names.split('\n').filter(name => name.trim() !== '');
+    if (namesArray.length === 0) {
+      alert('Por favor, insira pelo menos um nome.');
+      return;
+    }
+
+    setIsLoading(true); // Inicia o indicador de carregamento
+    setErrorMessage('');
 
     try {
-      generateDocuments(
-        templateContent,
-        namesArray,
-        tagList,
-      );
+      await generateDocuments(templateContent, namesArray, tagList);
     } catch (error) {
+      setErrorMessage('Erro ao gerar o documento: ' + error.message);
       alert('Erro ao gerar o documento. Verifique o console para mais detalhes.');
+      console.error('Erro ao gerar o documento:', error);
+    } finally {
+      setIsLoading(false); // Finaliza o indicador de carregamento
     }
   };
 
@@ -58,27 +67,22 @@ const App = () => {
       return;
     }
 
-    if (tag == "name") {
+    if (tag === "name") {
       alert('Tag reservada');
-      return
+      return;
     }
 
-    setTagList(
-      [...tagList, { tag, text }]
-    );
-    console.log('tagList:', tagList);
-  }
+    setTagList([...tagList, { tag, text }]);
+  };
 
   const handleRemoveTag = ({ tag, text }) => {
-    tagList.splice(tagList.indexOf({ tag, text }), 1);
-    setTagList(
-      [...tagList]
-    );
-  }
+    const updatedTagList = tagList.filter(t => !(t.tag === tag && t.text === text));
+    setTagList(updatedTagList);
+  };
 
   const handleSave = () => {
     localStorage.setItem('tagList', JSON.stringify(tagList));
-  }
+  };
 
   const handleExport = () => {
     const a = document.createElement('a');
@@ -86,7 +90,7 @@ const App = () => {
     a.href = URL.createObjectURL(file);
     a.download = 'tagList.json';
     a.click();
-  }
+  };
 
   const handleImport = () => {
     const input = document.createElement('input');
@@ -96,70 +100,36 @@ const App = () => {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onload = (e) => {
-        const content = e.target.result;
-        setTagList(JSON.parse(content));
+        try {
+          const content = e.target.result;
+          setTagList(JSON.parse(content));
+        } catch (error) {
+          setErrorMessage('Erro ao importar a lista de tags: ' + error.message);
+          console.error('Erro ao importar a lista de tags:', error);
+        }
       };
       reader.readAsText(file);
     };
     input.click();
-  }
+  };
 
   return (
-    <div style={styles.container} >
+    <div className="container">
       <h1>Docx Preecher</h1>
       <FileUploader onFileChange={handleFileChange} />
       <NameListInput names={names} setNames={setNames} />
       <TagListInput handleAddTag={handleAddTag} handleRemoveTag={handleRemoveTag} tagList={tagList} />
       <GenerateButton onClick={handleGenerateDocuments} />
-      <div style={styles.save} >
-        <button style={styles.buttonSave} onClick={() => handleSave()}>Salvar Localmente</button>
-        <button style={styles.buttonExport} onClick={() => handleExport()}>Export</button>
+      <div className="save">
+        <button className="button-save" onClick={handleSave}>Salvar Localmente</button>
+        <button className="button-export" onClick={handleExport}>Exportar</button>
       </div>
-        <button style={styles.buttonImport} onClick={() => handleImport()}>Importar</button>
+      <button className="button-import" onClick={handleImport}>Importar</button>
+      {isLoading && <p className="loading-message">Gerando documentos...</p>} {/* Exibe o indicador de carregamento */}
+      {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Exibe a mensagem de erro se existir */}
       <Footer />
     </div>
   );
 };
-
-const styles = {
-  container: {
-    fontFamily: 'Arial, sans-serif',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    padding: '20px',
-    maxWidth: '800px',
-    margin: '0 auto',
-    alignItems: 'center',
-  },
-  save: {
-    display: 'flex',
-    gap: '10px',
-  },
-  buttonSave: {
-    padding: '10px',
-    backgroundColor: 'green',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-  buttonExport: {
-    padding: '10px',
-    backgroundColor: 'blue',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-  buttonImport: {
-    padding: '10px',
-    backgroundColor: 'blue',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-}
 
 export default App;

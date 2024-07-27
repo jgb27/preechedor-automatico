@@ -1,0 +1,173 @@
+/* Contêiner principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+/* Contêiner dos inputs */
+.container-inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/* Estilos para inputs */
+.input {
+    padding: 5px;
+    font-size: 16px;
+    width: 200px;
+}
+
+/* Estilos para a tabela */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Estilos para cabeçalho da tabela */
+.th {
+    background-color: #f2f2f2;
+    color: black;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Estilos para células da tabela */
+.td {
+    padding: 8px;
+    text-align: center;
+}
+
+
+/* Estilos para botões */
+
+/* Estilo geral */
+
+.button,
+.button-remove,
+.button-add,
+.button-save,
+.button-export,
+.button-import {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2px auto;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.button {
+    padding: 10px;
+    background-color: blue;
+
+}
+
+.button-remove {
+    padding: 5px;
+    background-color: red;
+
+}
+
+.button-add {
+    padding: 5px;
+    background-color: green;
+
+}
+
+.button-save {
+    padding: 10px;
+    background-color: green;
+
+}
+
+.button-export {
+    padding: 10px;
+    background-color: #4e2de2;
+
+}
+
+.button-import {
+    padding: 10px;
+    background-color: blue;
+}
+
+/* Animação para os buttons */
+
+.button:hover {
+    background-color: #4e2de2;
+}
+
+.button-remove:hover {
+    background-color: #ff0000;
+}
+
+.button-add:hover {
+    background-color: #00ff00;
+}
+
+.button-save:hover {
+    background-color: #00ff00;
+}
+
+.button-export:hover {
+    background-color: #4e2de2;
+}
+
+.button-import:hover {
+    background-color: #0000ff;
+}
+
+
+/* Contêiner de salvamento e exportação */
+.save {
+    display: flex;
+    gap: 10px;
+}
+
+/* Mensagem de erro */
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Indicador de carregamento */
+.loading-message {
+    color: blue;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Estilos para o textArea */
+.text-area {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Estilos para o footer fixed botton */
+.footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+}
